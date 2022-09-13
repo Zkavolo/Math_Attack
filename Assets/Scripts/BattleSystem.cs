@@ -22,6 +22,7 @@ public class BattleSystem : MonoBehaviour
 
     [Header("Text")]
     public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI mathText;
 
     [Header("Unit HUD")]
     public BattleHUD playerHUD;
@@ -29,6 +30,7 @@ public class BattleSystem : MonoBehaviour
 
     [Header("Action HUD")]
     public GameObject playerAction;
+    public GameObject QuickTimeAction;
 
     [Header("State of game")]
     public BattleState state;
@@ -65,6 +67,7 @@ public class BattleSystem : MonoBehaviour
     {
         dialogueText.text = "What will you do ?";
         playerAction.SetActive(true);
+        QuickTimeAction.SetActive(false);
     }
 
     public void HeavyAtkButton()
@@ -72,29 +75,27 @@ public class BattleSystem : MonoBehaviour
         if(state != BattleState.PLAYERTURN)
             return ;
 
-        playerAction.SetActive(false);
-        StartCoroutine(PlayerHeavyAttack());    
+        PlayerHeavyAttack();    
     }
 
-    IEnumerator PlayerHeavyAttack()
+    void PlayerHeavyAttack()
     {
+        playerAction.SetActive(false);
         //Generate Random Number
-
+        MathQuestions();
         //add if function
         bool isdead = enemyUnit.TakeDamage(playerUnit.damage);
         
         enemyHUD.SetHP(enemyUnit.currentHP);
         dialogueText.text = "The attack is successful";
 
-        yield return new WaitForSeconds(2f);
-
-        if(isdead){
-            state = BattleState.WON;
-            EndBattle();
-        } else {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
+        // if(isdead){
+        //     state = BattleState.WON;
+        //     EndBattle();
+        // } else {
+        //     state = BattleState.ENEMYTURN;
+        //     StartCoroutine(EnemyTurn());
+        // }
     }
 
     //Enemy Turn
@@ -127,5 +128,28 @@ public class BattleSystem : MonoBehaviour
         } else if(state == BattleState.LOST){
             dialogueText.text = "You have been defeated";
         }
+    }
+
+    void MathQuestions()
+    {
+        QuickTimeAction.SetActive(true);
+        int firstVar = Random.Range(0, 100);
+        int SecondVar = Random.Range(0, 100);
+        int iniOper = Random.Range(0, 2);
+        char mathOper;
+        int resOper;
+
+            if(iniOper == 0){
+                mathOper = '+';
+                resOper = (firstVar + SecondVar);
+            } else if(iniOper == 1) {
+                mathOper = '-';
+                resOper = (firstVar - SecondVar);
+            } else {
+                mathOper = '*';
+                resOper = (firstVar * SecondVar);
+            }
+
+        mathText.text = firstVar + " " + mathOper + " " + SecondVar + " = " + resOper;
     }
 }
