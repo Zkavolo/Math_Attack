@@ -35,6 +35,14 @@ public class BattleSystem : MonoBehaviour
     [Header("State of game")]
     public BattleState state;
 
+    [Header("Input field")]
+    public TMP_InputField input;
+
+    [Header("Private variables")]
+    public string answer;
+    public string resOper;
+    public bool validation = false;
+    public int userAction;
 
     void Start()
     {
@@ -75,27 +83,26 @@ public class BattleSystem : MonoBehaviour
         if(state != BattleState.PLAYERTURN)
             return ;
 
-        PlayerHeavyAttack();    
+        userAction = 1;
+        MathQuestions();    
     }
 
-    void PlayerHeavyAttack()
+    IEnumerator PlayerHeavyAttack()
     {
-        playerAction.SetActive(false);
-        //Generate Random Number
-        MathQuestions();
-        //add if function
         bool isdead = enemyUnit.TakeDamage(playerUnit.damage);
         
         enemyHUD.SetHP(enemyUnit.currentHP);
         dialogueText.text = "The attack is successful";
 
-        // if(isdead){
-        //     state = BattleState.WON;
-        //     EndBattle();
-        // } else {
-        //     state = BattleState.ENEMYTURN;
-        //     StartCoroutine(EnemyTurn());
-        // }
+        yield return new WaitForSeconds(2f);
+
+        if(isdead){
+            state = BattleState.WON;
+            EndBattle();
+        } else {
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
     }
 
     //Enemy Turn
@@ -133,23 +140,49 @@ public class BattleSystem : MonoBehaviour
     void MathQuestions()
     {
         QuickTimeAction.SetActive(true);
+        playerAction.SetActive(false);
         int firstVar = Random.Range(0, 100);
         int SecondVar = Random.Range(0, 100);
         int iniOper = Random.Range(0, 2);
         char mathOper;
-        int resOper;
+        int totalOper;
 
             if(iniOper == 0){
                 mathOper = '+';
-                resOper = (firstVar + SecondVar);
+                totalOper = firstVar + SecondVar;
+                resOper = totalOper.ToString();
             } else if(iniOper == 1) {
                 mathOper = '-';
-                resOper = (firstVar - SecondVar);
+                totalOper = firstVar - SecondVar;
+                resOper = totalOper.ToString();
             } else {
                 mathOper = '*';
-                resOper = (firstVar * SecondVar);
+                totalOper = firstVar * SecondVar;
+                resOper = totalOper.ToString();
             }
 
-        mathText.text = firstVar + " " + mathOper + " " + SecondVar + " = " + resOper;
+        mathText.text = firstVar + " " + mathOper + " " + SecondVar + " = ??? ";
+    }
+
+    void ValidateAns()
+    {
+        //Player Heavy Attack
+        if(userAction == 1){
+            if(answer == resOper){
+                StartCoroutine(PlayerHeavyAttack());
+                userAction = 0;
+            } else if (answer != resOper){
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+                userAction = 0;
+            }
+        }    
+    }
+
+    public void SetAnswer()
+    {
+        answer = input.text;
+        QuickTimeAction.SetActive(false);
+        ValidateAns();
     }
 }
