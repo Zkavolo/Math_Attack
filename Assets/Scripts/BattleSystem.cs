@@ -74,9 +74,12 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn()
     {
         dialogueText.text = "What will you do ?";
+        playerUnit.NotBlocking();
         playerAction.SetActive(true);
         QuickTimeAction.SetActive(false);
     }
+
+    // Player action Buttons
 
     public void HeavyAtkButton()
     {
@@ -87,9 +90,56 @@ public class BattleSystem : MonoBehaviour
         MathQuestions();    
     }
 
+    public void NormalAtkButton()
+    {
+        if(state != BattleState.PLAYERTURN)
+            return ;
+
+        userAction = 2;
+        MathQuestions();    
+    }
+
+    public void BlockButton()
+    {
+        if(state != BattleState.PLAYERTURN)
+            return ;
+
+        userAction = 3;
+        MathQuestions();    
+    }
+
+    public void HealButton()
+    {
+        if(state != BattleState.PLAYERTURN)
+            return ;
+
+        userAction = 4;
+        MathQuestions();    
+    }
+
+    //Player Actions
+
     IEnumerator PlayerHeavyAttack()
     {
         bool isdead = enemyUnit.TakeDamage(playerUnit.damage);
+        
+        enemyHUD.SetHP(enemyUnit.currentHP);
+        dialogueText.text = "The heavy attack is successful";
+
+        yield return new WaitForSeconds(2f);
+
+        if(isdead){
+            state = BattleState.WON;
+            EndBattle();
+        } else {
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    IEnumerator PlayerNormalAttack()
+    {
+        bool isdead = enemyUnit.TakeDamage(playerUnit.damage/2);
         
         enemyHUD.SetHP(enemyUnit.currentHP);
         dialogueText.text = "The attack is successful";
@@ -103,6 +153,40 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
+    }
+
+    IEnumerator PlayerBlock()
+    {
+        playerUnit.Blocking();
+
+        dialogueText.text = "Player is blocking";
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator PlayerHeal()
+    {
+        playerUnit.Heal(playerUnit.damage);
+
+        dialogueText.text = "Player is healing";
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator PlayerFail()
+    {
+        dialogueText.text = "Player failed to do an action";
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
     }
 
     //Enemy Turn
@@ -128,6 +212,8 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    //After battle condition
+
     void EndBattle()
     {
         if(state == BattleState.WON){
@@ -136,6 +222,8 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = "You have been defeated";
         }
     }
+
+    //random math question generator
 
     void MathQuestions()
     {
@@ -164,6 +252,8 @@ public class BattleSystem : MonoBehaviour
         mathText.text = firstVar + " " + mathOper + " " + SecondVar + " = ??? ";
     }
 
+    //validasi jawaban
+
     void ValidateAns()
     {
         //Player Heavy Attack
@@ -172,12 +262,43 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(PlayerHeavyAttack());
                 userAction = 0;
             } else if (answer != resOper){
-                state = BattleState.ENEMYTURN;
-                StartCoroutine(EnemyTurn());
+                StartCoroutine(PlayerFail());
                 userAction = 0;
             }
-        }    
+        }
+        //Player Normal Attack
+        else if(userAction == 2){
+            if(answer == resOper){
+                StartCoroutine(PlayerNormalAttack());
+                userAction = 0;
+            } else if (answer != resOper){
+                StartCoroutine(PlayerFail());
+                userAction = 0;
+            }
+        }
+        //Player Block
+        else if(userAction == 3){
+            if(answer == resOper){
+                StartCoroutine(PlayerBlock());
+                userAction = 0;
+            } else if (answer != resOper){
+                StartCoroutine(PlayerFail());
+                userAction = 0;
+            }
+        }
+        //Player Heal
+        else if(userAction == 4){
+            if(answer == resOper){
+                StartCoroutine(PlayerHeal());
+                userAction = 0;
+            } else if (answer != resOper){
+                StartCoroutine(PlayerFail());
+                userAction = 0;
+            }
+        }
     }
+
+    //determine set answer
 
     public void SetAnswer()
     {

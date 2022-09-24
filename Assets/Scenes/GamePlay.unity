@@ -475,6 +475,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 443375304}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NormalAtkButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
 --- !u!1 &405744427
@@ -781,6 +809,34 @@ PrefabInstance:
     - target: {fileID: 4708794084897783026, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 443375304}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BlockButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
@@ -1668,6 +1724,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 443375304}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HealButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585369006042765540, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc16ae84608a38e4880956be7f11f3e3, type: 3}
 --- !u!1001 &1194509055746092992
@@ -1871,6 +1955,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6252891525619796781, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252891525619796781, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
+      propertyPath: m_MaxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252891525619796781, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
@@ -1897,6 +1989,14 @@ PrefabInstance:
     - target: {fileID: 6252891526061882298, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252891526768014162, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252891526768014162, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
+      propertyPath: m_MaxValue
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6252891526768014162, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
       propertyPath: m_Interactable

@@ -13,14 +13,36 @@ public class Unit : MonoBehaviour
     [Header("Unit Health Points")]
     public int maxHP;
     public int currentHP;
+    public bool shielded = false;
 
     public bool TakeDamage(int dmg)
     {
-        currentHP -= dmg;
+        if(shielded == true){
+            currentHP -= (dmg/2);
+        } else {
+            currentHP -= dmg;
+        }
 
         if(currentHP <= 0)
             return true;
         else
             return false;
+    }
+
+    public void Heal(int heal)
+    {
+        currentHP += heal;
+        if(currentHP > maxHP)
+           currentHP = maxHP;
+    }
+
+    public void Blocking()
+    {
+        shielded = true;
+    }
+
+    public void NotBlocking()
+    {
+        shielded = false;
     }
 }

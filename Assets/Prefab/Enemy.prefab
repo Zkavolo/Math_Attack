@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Enemy
-  damage: 1
-  maxHP: 10
-  currentHP: 10
+  damage: 5
+  maxHP: 100
+  currentHP: 100
+  shielded: 0
