@@ -23,6 +23,7 @@ public class BattleSystem : MonoBehaviour
     [Header("Text")]
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI mathText;
+    public TextMeshProUGUI TimerText;
 
     [Header("Unit HUD")]
     public BattleHUD playerHUD;
@@ -43,11 +44,29 @@ public class BattleSystem : MonoBehaviour
     public string resOper;
     public bool validation = false;
     public int userAction;
+    public float Timer;
+    public bool TimerRun = false;
 
     void Start()
     {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
+    }
+
+    void Update()
+    {
+        if(TimerRun)
+        {
+            if(Timer > 0)
+            {
+                Timer -= Time.deltaTime;
+                DisplayTimer(Timer);
+            } else {
+                TimerRun = false;
+                StartCoroutine(PlayerFail());
+                userAction = 0;
+            }
+        }
     }
 
     IEnumerator SetupBattle()
@@ -77,6 +96,7 @@ public class BattleSystem : MonoBehaviour
         playerUnit.NotBlocking();
         playerAction.SetActive(true);
         QuickTimeAction.SetActive(false);
+        Timer = 10;
     }
 
     // Player action Buttons
@@ -87,7 +107,8 @@ public class BattleSystem : MonoBehaviour
             return ;
 
         userAction = 1;
-        MathQuestions();    
+        MathQuestions();
+        QTimer();    
     }
 
     public void NormalAtkButton()
@@ -96,7 +117,8 @@ public class BattleSystem : MonoBehaviour
             return ;
 
         userAction = 2;
-        MathQuestions();    
+        MathQuestions();
+        QTimer();    
     }
 
     public void BlockButton()
@@ -105,7 +127,8 @@ public class BattleSystem : MonoBehaviour
             return ;
 
         userAction = 3;
-        MathQuestions();    
+        MathQuestions();
+        QTimer();    
     }
 
     public void HealButton()
@@ -114,7 +137,8 @@ public class BattleSystem : MonoBehaviour
             return ;
 
         userAction = 4;
-        MathQuestions();    
+        MathQuestions();
+        QTimer();    
     }
 
     //Player Actions
@@ -252,6 +276,20 @@ public class BattleSystem : MonoBehaviour
         mathText.text = firstVar + " " + mathOper + " " + SecondVar + " = ??? ";
     }
 
+    //Timer
+
+    void QTimer()
+    {
+        TimerRun = true;
+    }
+
+    void DisplayTimer(float CurTime)
+    {
+        CurTime += 1;
+        int DisplayTime = Mathf.FloorToInt(CurTime);
+        TimerText.text = string.Format("{00}",DisplayTime);
+    }
+
     //validasi jawaban
 
     void ValidateAns()
@@ -302,6 +340,7 @@ public class BattleSystem : MonoBehaviour
 
     public void SetAnswer()
     {
+        TimerRun = false;
         answer = input.text;
         QuickTimeAction.SetActive(false);
         ValidateAns();
