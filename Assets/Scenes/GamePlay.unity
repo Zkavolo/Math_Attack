@@ -683,12 +683,14 @@ MonoBehaviour:
   QuickTimeAction: {fileID: 369876080}
   state: 0
   input: {fileID: 2054079867}
+  UltButton: {fileID: 617429707}
   answer: 
   resOper: 
   validation: 0
   userAction: 0
   Timer: 0
   TimerRun: 0
+  UltCharge: 0
 --- !u!4 &443375305
 Transform:
   m_ObjectHideFlags: 0
@@ -703,6 +705,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &617429707 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4934666493342243511, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
+  m_PrefabInstance: {fileID: 6252891527276661936}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &660196637 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6252891525619796781, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
@@ -2037,7 +2050,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3672064684563780034, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
       propertyPath: m_Text
-      value: Heavy Attack
+      value: Elemental Burst
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831101333405531906, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4934666493342243511, guid: ef87a8bf3c50f1941912e85f14db1065, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

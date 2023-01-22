@@ -39,13 +39,17 @@ public class BattleSystem : MonoBehaviour
     [Header("Input field")]
     public TMP_InputField input;
 
+    [Header("Buttons")]
+    public Button UltButton;
+
     [Header("Private variables")]
     public string answer;
     public string resOper;
-    public bool validation = false;
+    public bool validation;
     public int userAction;
     public float Timer;
-    public bool TimerRun = false;
+    public bool TimerRun;
+    public int UltCharge;
 
     void Start()
     {
@@ -95,6 +99,11 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "What will you do ?";
         playerUnit.NotBlocking();
         playerAction.SetActive(true);
+        if(UltCharge != 3){
+            UltButton.interactable = false;
+        } else if (UltCharge == 3) {
+            UltButton.interactable = true;
+        }
         QuickTimeAction.SetActive(false);
         Timer = 10;
     }
@@ -145,7 +154,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerHeavyAttack()
     {
-        bool isdead = enemyUnit.TakeDamage(playerUnit.damage);
+        bool isdead = enemyUnit.TakeDamage(playerUnit.damage*2);
         
         enemyHUD.SetHP(enemyUnit.currentHP);
         dialogueText.text = "The heavy attack is successful";
@@ -163,10 +172,14 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerNormalAttack()
     {
-        bool isdead = enemyUnit.TakeDamage(playerUnit.damage/2);
+        bool isdead = enemyUnit.TakeDamage(playerUnit.damage);
         
         enemyHUD.SetHP(enemyUnit.currentHP);
         dialogueText.text = "The attack is successful";
+
+        if(UltCharge>=0&&UltCharge<3){
+            UltCharge++;
+        }
 
         yield return new WaitForSeconds(2f);
 
