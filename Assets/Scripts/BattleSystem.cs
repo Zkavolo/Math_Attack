@@ -30,17 +30,14 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
 
     [Header("Action HUD")]
-    public GameObject playerAction;
     public GameObject QuickTimeAction;
 
     [Header("State of game")]
     public BattleState state;
+    public PlayerAction playerAct;
 
     [Header("Input field")]
     public TMP_InputField input;
-
-    [Header("Buttons")]
-    public Button UltButton;
 
     [Header("Private variables")]
     public string answer;
@@ -49,7 +46,6 @@ public class BattleSystem : MonoBehaviour
     public int userAction;
     public float Timer;
     public bool TimerRun;
-    public int UltCharge;
 
     void Start()
     {
@@ -67,13 +63,13 @@ public class BattleSystem : MonoBehaviour
                 DisplayTimer(Timer);
             } else {
                 TimerRun = false;
-                StartCoroutine(PlayerFail());
+                StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;
             }
         }
     }
 
-    IEnumerator SetupBattle()
+    public IEnumerator SetupBattle()
     {
         GameObject PlayerGo = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = PlayerGo.GetComponent<Unit>();
@@ -89,169 +85,51 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        playerAct.PlayerTurn();
     }
 
-    //Player Turn
-
-    void PlayerTurn()
-    {
-        dialogueText.text = "What will you do ?";
-        playerUnit.NotBlocking();
-        playerAction.SetActive(true);
-        if(UltCharge != 3){
-            UltButton.interactable = false;
-        } else if (UltCharge == 3) {
-            UltButton.interactable = true;
-        }
-        QuickTimeAction.SetActive(false);
-        Timer = 10;
+    public void StateWon(){
+        state = BattleState.WON;
     }
 
-    // Player action Buttons
-
-    public void HeavyAtkButton()
-    {
-        if(state != BattleState.PLAYERTURN)
-            return ;
-
-        userAction = 1;
-        MathQuestions();
-        QTimer();    
+    public void StateLost(){
+        state = BattleState.LOST;
     }
 
-    public void NormalAtkButton()
-    {
-        if(state != BattleState.PLAYERTURN)
-            return ;
-
-        userAction = 2;
-        MathQuestions();
-        QTimer();    
+    public void StatePlayerTurn(){
+        state = BattleState.PLAYERTURN;
     }
 
-    public void BlockButton()
-    {
-        if(state != BattleState.PLAYERTURN)
-            return ;
-
-        userAction = 3;
-        MathQuestions();
-        QTimer();    
-    }
-
-    public void HealButton()
-    {
-        if(state != BattleState.PLAYERTURN)
-            return ;
-
-        userAction = 4;
-        MathQuestions();
-        QTimer();    
-    }
-
-    //Player Actions
-
-    IEnumerator PlayerHeavyAttack()
-    {
-        bool isdead = enemyUnit.TakeDamage(playerUnit.damage*2);
-        
-        enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "The heavy attack is successful";
-
-        yield return new WaitForSeconds(2f);
-
-        if(isdead){
-            state = BattleState.WON;
-            EndBattle();
-        } else {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
-    }
-
-    IEnumerator PlayerNormalAttack()
-    {
-        bool isdead = enemyUnit.TakeDamage(playerUnit.damage);
-        
-        enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "The attack is successful";
-
-        if(UltCharge>=0&&UltCharge<3){
-            UltCharge++;
-        }
-
-        yield return new WaitForSeconds(2f);
-
-        if(isdead){
-            state = BattleState.WON;
-            EndBattle();
-        } else {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
-    }
-
-    IEnumerator PlayerBlock()
-    {
-        playerUnit.Blocking();
-
-        dialogueText.text = "Player is blocking";
-
-        yield return new WaitForSeconds(2f);
-
+    public void StateEnemyTurn(){
         state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
-    }
-
-    IEnumerator PlayerHeal()
-    {
-        playerUnit.Heal(playerUnit.damage);
-
-        dialogueText.text = "Player is healing";
-
-        yield return new WaitForSeconds(2f);
-
-        state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
-    }
-
-    IEnumerator PlayerFail()
-    {
-        dialogueText.text = "Player failed to do an action";
-
-        yield return new WaitForSeconds(2f);
-
-        state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
     }
 
     //Enemy Turn
 
-    IEnumerator EnemyTurn()
-    {
-        dialogueText.text = enemyUnit.unitName + "does an action";
+    // public IEnumerator EnemyTurn()
+    // {
+    //     dialogueText.text = enemyUnit.unitName + "does an action";
 
-        yield return new WaitForSeconds(1f);
+    //     yield return new WaitForSeconds(1f);
 
-        bool isdead = playerUnit.TakeDamage(enemyUnit.damage);
+    //     bool isdead = playerUnit.TakeDamage(enemyUnit.damage);
         
-        playerHUD.SetHP(playerUnit.currentHP);
+    //     playerHUD.SetHP(playerUnit.currentHP);
 
-        yield return new WaitForSeconds(1f);
+    //     yield return new WaitForSeconds(1f);
 
-        if(isdead){
-            state = BattleState.LOST;
-            EndBattle();
-        } else {
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
-        }
-    }
+    //     if(isdead){
+    //         StateLost();
+    //         EndBattle();
+    //     } else {
+    //         state = BattleState.PLAYERTURN;
+    //         playerAct.PlayerTurn();
+    //     }
+    // }
 
     //After battle condition
 
-    void EndBattle()
+    public void EndBattle()
     {
         if(state == BattleState.WON){
             dialogueText.text = "You won the battle!";
@@ -262,10 +140,10 @@ public class BattleSystem : MonoBehaviour
 
     //random math question generator
 
-    void MathQuestions()
+    public void MathQuestions()
     {
         QuickTimeAction.SetActive(true);
-        playerAction.SetActive(false);
+        playerAct.playerAction.SetActive(false);
         int firstVar = Random.Range(0, 100);
         int SecondVar = Random.Range(0, 100);
         int iniOper = Random.Range(0, 2);
@@ -291,59 +169,63 @@ public class BattleSystem : MonoBehaviour
 
     //Timer
 
-    void QTimer()
+    public void QTimer()
     {
         TimerRun = true;
     }
 
-    void DisplayTimer(float CurTime)
+    public void DisplayTimer(float CurTime)
     {
         CurTime += 1;
         int DisplayTime = Mathf.FloorToInt(CurTime);
         TimerText.text = string.Format("{00}",DisplayTime);
     }
 
+    public void ResetTimer(){
+        Timer = 10;
+    }
+
     //validasi jawaban
 
-    void ValidateAns()
+    public void ValidateAns()
     {
         //Player Heavy Attack
         if(userAction == 1){
             if(answer == resOper){
-                StartCoroutine(PlayerHeavyAttack());
+                StartCoroutine(playerAct.PlayerHeavyAttack());
                 userAction = 0;
             } else if (answer != resOper){
-                StartCoroutine(PlayerFail());
+                StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;
             }
         }
         //Player Normal Attack
         else if(userAction == 2){
             if(answer == resOper){
-                StartCoroutine(PlayerNormalAttack());
+                StartCoroutine(playerAct.PlayerNormalAttack());
                 userAction = 0;
             } else if (answer != resOper){
-                StartCoroutine(PlayerFail());
+                StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;
             }
         }
         //Player Block
         else if(userAction == 3){
             if(answer == resOper){
-                StartCoroutine(PlayerBlock());
+                StartCoroutine(playerAct.PlayerBlock());
                 userAction = 0;
             } else if (answer != resOper){
-                StartCoroutine(PlayerFail());
+                StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;
             }
         }
         //Player Heal
         else if(userAction == 4){
             if(answer == resOper){
-                StartCoroutine(PlayerHeal());
+                StartCoroutine(playerAct.PlayerHeal());
                 userAction = 0;
             } else if (answer != resOper){
-                StartCoroutine(PlayerFail());
+                StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;
             }
         }
@@ -357,5 +239,6 @@ public class BattleSystem : MonoBehaviour
         answer = input.text;
         QuickTimeAction.SetActive(false);
         ValidateAns();
+        ResetTimer();
     }
 }
