@@ -79,6 +79,9 @@ public class BattleSystem : MonoBehaviour
 
         dialogueText.text = "An " + enemyUnit.unitName + " appeared ";
 
+        playerUnit.currentHP = playerUnit.maxHP;
+        enemyUnit.currentHP = enemyUnit.maxHP;
+
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
@@ -103,29 +106,6 @@ public class BattleSystem : MonoBehaviour
     public void StateEnemyTurn(){
         state = BattleState.ENEMYTURN;
     }
-
-    //Enemy Turn
-
-    // public IEnumerator EnemyTurn()
-    // {
-    //     dialogueText.text = enemyUnit.unitName + "does an action";
-
-    //     yield return new WaitForSeconds(1f);
-
-    //     bool isdead = playerUnit.TakeDamage(enemyUnit.damage);
-        
-    //     playerHUD.SetHP(playerUnit.currentHP);
-
-    //     yield return new WaitForSeconds(1f);
-
-    //     if(isdead){
-    //         StateLost();
-    //         EndBattle();
-    //     } else {
-    //         state = BattleState.PLAYERTURN;
-    //         playerAct.PlayerTurn();
-    //     }
-    // }
 
     //After battle condition
 
@@ -193,7 +173,7 @@ public class BattleSystem : MonoBehaviour
         if(userAction == 1){
             if(answer == resOper){
                 StartCoroutine(playerAct.PlayerHeavyAttack());
-                userAction = 0;
+                userAction = 1;
             } else if (answer != resOper){
                 StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;
@@ -203,7 +183,7 @@ public class BattleSystem : MonoBehaviour
         else if(userAction == 2){
             if(answer == resOper){
                 StartCoroutine(playerAct.PlayerNormalAttack());
-                userAction = 0;
+                userAction = 2;
             } else if (answer != resOper){
                 StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;
@@ -213,7 +193,7 @@ public class BattleSystem : MonoBehaviour
         else if(userAction == 3){
             if(answer == resOper){
                 StartCoroutine(playerAct.PlayerBlock());
-                userAction = 0;
+                userAction = 3;
             } else if (answer != resOper){
                 StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;
@@ -223,7 +203,7 @@ public class BattleSystem : MonoBehaviour
         else if(userAction == 4){
             if(answer == resOper){
                 StartCoroutine(playerAct.PlayerHeal());
-                userAction = 0;
+                userAction = 4;
             } else if (answer != resOper){
                 StartCoroutine(playerAct.PlayerFail());
                 userAction = 0;

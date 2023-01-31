@@ -25,22 +25,56 @@ public class EnemyAI_1 : MonoBehaviour
 
     public IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.unitName + "attacks";
+        enemyUnit.NotBlocking();
 
-        yield return new WaitForSeconds(1f);
+        dialogueText.text = enemyUnit.unitName + " Turn";
 
-        bool isdead = playerUnit.TakeDamage(enemyUnit.damage);
-        
+        yield return new WaitForSeconds(2f);
+
+        if(BattleSystem.userAction==1){
+
+        dialogueText.text = enemyUnit.unitName + " retaliates";
+
+        yield return new WaitForSeconds(2f);
+
+        bool isdead = playerUnit.TakeDamage(enemyUnit.damage*2);
         playerHUD.SetHP(playerUnit.currentHP);
 
-        yield return new WaitForSeconds(1f);
+            if(isdead){
+                BattleSystem.StateLost();
+                BattleSystem.EndBattle();
+            } else {
+                BattleSystem.StatePlayerTurn();
+                playerAct.PlayerTurn();
+            }
 
-        if(isdead){
-            BattleSystem.StateLost();
-            BattleSystem.EndBattle();
+        } else if(BattleSystem.userAction==2) {
+
+        dialogueText.text = enemyUnit.unitName + " attacks";
+
+        yield return new WaitForSeconds(2f);
+
+        bool isdead = playerUnit.TakeDamage(enemyUnit.damage);
+        playerHUD.SetHP(playerUnit.currentHP);
+
+            if(isdead){
+                BattleSystem.StateLost();
+                BattleSystem.EndBattle();
+            } else {
+                BattleSystem.StatePlayerTurn();
+                playerAct.PlayerTurn();
+            }
+
         } else {
-            BattleSystem.StatePlayerTurn();
-            playerAct.PlayerTurn();
+
+        enemyUnit.Blocking();
+
+        dialogueText.text = enemyUnit.unitName + " blocks";
+
+        yield return new WaitForSeconds(2f);
+        
+        BattleSystem.StatePlayerTurn();
+        playerAct.PlayerTurn();
         }
     }
 }
