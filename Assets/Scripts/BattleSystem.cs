@@ -17,8 +17,8 @@ public class BattleSystem : MonoBehaviour
     public Transform enemyBattleStation;
 
     [Header("Unit Variable")]
-    Unit playerUnit;
-    Unit enemyUnit;
+    public Unit playerUnit;
+    public Unit enemyUnit;
 
     [Header("Text")]
     public TextMeshProUGUI dialogueText;
@@ -71,16 +71,7 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
-        GameObject PlayerGo = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = PlayerGo.GetComponent<Unit>();
-
-        GameObject EnemyGo = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = EnemyGo.GetComponent<Unit>();
-
         dialogueText.text = "An " + enemyUnit.unitName + " appeared ";
-
-        playerUnit.currentHP = playerUnit.maxHP;
-        enemyUnit.currentHP = enemyUnit.maxHP;
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
