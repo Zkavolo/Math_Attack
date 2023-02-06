@@ -160,7 +160,7 @@ public class BattleSystem : MonoBehaviour
 
     public void ValidateAns()
     {
-        //Player Heavy Attack
+        //Player Ult
         if(userAction == 1){
             if(answer == resOper){
                 StartCoroutine(playerAct.PlayerHeavyAttack());

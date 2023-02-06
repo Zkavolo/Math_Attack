@@ -27,8 +27,10 @@ public class PlayerAction : MonoBehaviour
     public BattleSystem BattleSystem;
     public EnemyAI_1 EnemyAi;
 
-    [Header("Private variables")]
+    [Header("Unit only variables")]
     public int UltCharge;
+    public Animator Playeranim;
+
 
     //Player Turn
     public void PlayerTurn()
@@ -76,7 +78,11 @@ public class PlayerAction : MonoBehaviour
 
     //Player Actions
     public IEnumerator PlayerHeavyAttack()
-    {
+    {   
+        Playeranim.SetTrigger("PlayerUlt");
+
+        yield return new WaitForSeconds(2f);
+
         bool isdead = enemyUnit.TakeDamage(playerUnit.damage*2);
         
         enemyHUD.SetHP(enemyUnit.currentHP);
@@ -97,6 +103,10 @@ public class PlayerAction : MonoBehaviour
 
     public IEnumerator PlayerNormalAttack()
     {
+        Playeranim.SetTrigger("PlayerAtk");
+
+        yield return new WaitForSeconds(0.30f);
+
         bool isdead = enemyUnit.TakeDamage(playerUnit.damage);
         
         enemyHUD.SetHP(enemyUnit.currentHP);
