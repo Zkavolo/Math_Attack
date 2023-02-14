@@ -20,6 +20,9 @@ public class EnemyAI_1 : MonoBehaviour
     [Header("Script Link")]
     public BattleSystem BattleSystem;
     public PlayerAction playerAct;
+
+    [Header("Unit only variables")]
+    public Animator Enemyanim;
     
     //Enemy Turn
 
@@ -31,7 +34,7 @@ public class EnemyAI_1 : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        if(BattleSystem.userAction==1){
+        if(BattleSystem.userAction==1||BattleSystem.userAction==0){
 
             StartCoroutine(EnemyRetaliates());
 
@@ -48,6 +51,10 @@ public class EnemyAI_1 : MonoBehaviour
 
     public IEnumerator EnemyRetaliates()
     {
+        Enemyanim.SetTrigger("EnemyUlt");
+
+        yield return new WaitForSeconds(3f);
+
         bool isdead = playerUnit.TakeDamage(enemyUnit.damage*2);
         playerHUD.SetHP(playerUnit.currentHP);
 
@@ -66,6 +73,10 @@ public class EnemyAI_1 : MonoBehaviour
 
     public IEnumerator EnemyAttacks()
     {
+        Enemyanim.SetTrigger("EnemyAtk");
+
+        yield return new WaitForSeconds(0.45f);
+
         bool isdead = playerUnit.TakeDamage(enemyUnit.damage);
         playerHUD.SetHP(playerUnit.currentHP);
 

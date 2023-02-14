@@ -15,8 +15,19 @@ public class Unit : MonoBehaviour
     public int currentHP;
     public bool shielded = false;
 
+    [Header("Animator Variable")]
+    public Animator Unitanim;
+
+    void Update(){
+        if(currentHP <= 0){
+            Unitanim.SetBool("isDead",true);
+        }
+    }
+
     public bool TakeDamage(int dmg)
     {
+        Unitanim.SetTrigger("isHurt");
+
         if(shielded == true){
             currentHP -= (dmg/2);
         } else {
