@@ -29,6 +29,10 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
+    [Header("Win Lose UI")]
+    public WinUI WUI;
+    public LoseUI LUI;
+
     [Header("Action HUD")]
     public GameObject QuickTimeAction;
 
@@ -71,7 +75,7 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
-        dialogueText.text = "An " + enemyUnit.unitName + " appeared ";
+        dialogueText.text = "The " + enemyUnit.unitName + " has appeared ";
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
@@ -104,8 +108,10 @@ public class BattleSystem : MonoBehaviour
     {
         if(state == BattleState.WON){
             dialogueText.text = "You won the battle!";
+            WUI.WinCondition();
         } else if(state == BattleState.LOST){
             dialogueText.text = "You have been defeated";
+            LUI.LoseCondition();
         }
     }
 

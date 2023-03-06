@@ -52,7 +52,7 @@ public class PlayerAction : MonoBehaviour
     {
         BattleSystem.userAction = 1;
         BattleSystem.MathQuestions();
-        BattleSystem.QTimer();    
+        BattleSystem.QTimer();  
     }
 
     public void NormalAtkButton()
