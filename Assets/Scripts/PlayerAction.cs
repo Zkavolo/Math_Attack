@@ -22,10 +22,11 @@ public class PlayerAction : MonoBehaviour
 
     [Header("Buttons")]
     public Button UltButton;
+    public Button HealChargeButton;
 
     [Header("Script Link")]
     public BattleSystem BattleSystem;
-    public EnemyAI_1 EnemyAi;
+    public EnemyAI EnemyAi;
 
     [Header("Unit only variables")]
     public int UltCharge;
@@ -42,6 +43,12 @@ public class PlayerAction : MonoBehaviour
             UltButton.interactable = false;
         } else if (UltCharge == 3) {
             UltButton.interactable = true;
+        }
+
+        if(playerUnit.HealCharge != 0){
+            HealChargeButton.interactable = true;
+        } else {
+            HealChargeButton.interactable = false;
         }
         BattleSystem.QuickTimeAction.SetActive(false);
         BattleSystem.Timer = 10;
@@ -143,7 +150,9 @@ public class PlayerAction : MonoBehaviour
     {
         playerUnit.Heal(playerUnit.damage);
 
+        playerHUD.SetHP(playerUnit.currentHP);
         dialogueText.text = "Player is healing";
+        playerUnit.HealCharge--;
 
         yield return new WaitForSeconds(2f);
 

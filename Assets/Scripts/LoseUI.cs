@@ -8,14 +8,6 @@ using TMPro;
 public class LoseUI : MonoBehaviour
 {
     public GameObject LosePanel;
-    // public BattleSystem BattleSystem;
-
-    // void update()
-    // {
-    //     if(BattleSystem.state == BattleState.LOST){
-    //         LoseCondition();
-    //     }
-    // }
 
     public void LoseCondition()
     {

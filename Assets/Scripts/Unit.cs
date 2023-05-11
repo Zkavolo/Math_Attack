@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public bool shielded = false;
+    public int HealCharge;
 
     [Header("Animator Variable")]
     public Animator Unitanim;
@@ -30,6 +31,7 @@ public class Unit : MonoBehaviour
 
         if(shielded == true){
             currentHP -= (dmg/2);
+            Unitanim.SetBool("Shielded",false);
         } else {
             currentHP -= dmg;
         }
@@ -42,18 +44,23 @@ public class Unit : MonoBehaviour
 
     public void Heal(int heal)
     {
-        currentHP += heal;
+        Unitanim.SetTrigger("Heal");
+        currentHP += (heal*5);
         if(currentHP > maxHP)
            currentHP = maxHP;
     }
 
     public void Blocking()
     {
+        Unitanim.SetBool("Shielded",true);
         shielded = true;
     }
 
     public void NotBlocking()
     {
+        if(shielded == true){
+            Unitanim.SetBool("Shielded",false);
+        }
         shielded = false;
     }
 }
