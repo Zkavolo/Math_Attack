@@ -26,6 +26,13 @@ public class SoundManager : MonoBehaviour
         effectSource.PlayOneShot(clip);
     }
 
+    public void MusicManager(AudioClip clip)
+    {
+        musicSource.clip = clip;
+        musicSource.Play();
+        musicSource.loop = true;
+    }
+
     public void ChangeMusicVolume(float value) 
     {
         musicSource.volume = value;

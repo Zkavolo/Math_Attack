@@ -17,11 +17,12 @@ public class UnitStats
     public int Edmg;
     public bool Pblocking;
     public bool Eblocking;
+    public int playout;
 
     public int GameResult;
 
     // Stores all game variables that affects gameplay
-    public UnitStats (int userAction, int enemyAction, int pHP, int eHP, int Pult, int Eult, int Pheal, int EHeal, int Pdmg, int Edmg, bool Pblocking, bool Eblocking)
+    public UnitStats (int userAction, int enemyAction, int pHP, int eHP, int Pult, int Eult, int Pheal, int EHeal, int Pdmg, int Edmg, bool Pblocking, bool Eblocking, int playout)
     {
         
         this.userAction = userAction;
@@ -36,6 +37,7 @@ public class UnitStats
         this.Edmg = Edmg;
         this.Pblocking = Pblocking;
         this.Eblocking = Eblocking;
+        this.playout = playout;
 
         GameResult = 0;
     }

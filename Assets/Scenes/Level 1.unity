@@ -1267,8 +1267,8 @@ MonoBehaviour:
   TimerText: {fileID: 1534484241}
   playerHUD: {fileID: 1636488085}
   enemyHUD: {fileID: 1625549542}
-  WUI: {fileID: 0}
-  LUI: {fileID: 0}
+  WUI: {fileID: 891458205}
+  LUI: {fileID: 810145875}
   QuickTimeAction: {fileID: 369876080}
   state: 0
   playerAct: {fileID: 1757720219}
@@ -2940,6 +2940,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b9a60de06daecc4aae639c0df9b0c92, type: 3}
+--- !u!1 &1040981122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1040981124}
+  - component: {fileID: 1040981123}
+  m_Layer: 0
+  m_Name: Music Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1040981123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040981122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a5f2784e565c14e931e13e276dd6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music: {fileID: 8300000, guid: 8a165aedbe4d79c4283359bba1658a61, type: 3}
+--- !u!4 &1040981124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040981122}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.71121323, y: -0.35882944, z: 47.738537}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1042519344
 GameObject:
   m_ObjectHideFlags: 0
@@ -3380,6 +3424,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip:
   - {fileID: 8300000, guid: 3dd3e944c396a1040a545a14fe04e07a, type: 3}
+  - {fileID: 8300000, guid: c03ffd437acffc145bd14720cff12346, type: 3}
+  - {fileID: 8300000, guid: 0d9a4094a64e4554185d8df0075d66cd, type: 3}
+  - {fileID: 8300000, guid: 04513e4a24139614099fd9734f0d7240, type: 3}
+  - {fileID: 8300000, guid: edffe88d56a974545b547c98e2301a59, type: 3}
+  - {fileID: 8300000, guid: bbdca27e71988a34c81b4f320e5625e0, type: 3}
+  - {fileID: 8300000, guid: 17bb9342f84c0494080d40828327fa57, type: 3}
 --- !u!114 &1270753149 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 194602018959883249, guid: 7c68659524e96dc458c98f2a51b527dd, type: 3}
@@ -3444,6 +3494,7 @@ MonoBehaviour:
   Enemyanim: {fileID: 1923829874}
   UltCharge: 0
   enemyAction: 0
+  playout: 5
 --- !u!114 &1302471070 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6024072752918441089, guid: ac4d9f5d5edf65e42bfe4e04166a060f, type: 3}
@@ -3531,7 +3582,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.26, y: 1.5}
+  m_Size: {x: 0.49, y: 0.35}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -5153,6 +5204,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1923829875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923829872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee3265ff0dea004eaaf199eda8f3761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip:
+  - {fileID: 8300000, guid: 16330c1fe8a1e5b45ab0fa5ead6fb4bd, type: 3}
+  - {fileID: 8300000, guid: bc039d917df69cf478b961a3d559aca5, type: 3}
+  - {fileID: 8300000, guid: 0d9a4094a64e4554185d8df0075d66cd, type: 3}
+  - {fileID: 8300000, guid: 04513e4a24139614099fd9734f0d7240, type: 3}
+  - {fileID: 8300000, guid: 3a2caf5a4c8afe341873c2a409b1ef94, type: 3}
+  - {fileID: 8300000, guid: 9676fae3aca90554c94601239caee1d8, type: 3}
 --- !u!1 &1948368004
 GameObject:
   m_ObjectHideFlags: 0

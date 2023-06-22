@@ -82,7 +82,7 @@ public class TreeNode
         //Apply one move for each expansion child
         foreach (int act in childrenActions)
         {
-            TreeNode childNode = new TreeNode(new UnitStats(unitstats.userAction, unitstats.enemyAction, unitstats.pHP, unitstats.eHP, unitstats.Pult, unitstats.Eult, unitstats.Pheal, unitstats.EHeal, unitstats.Pdmg, unitstats.Edmg, unitstats.Pblocking, unitstats.Eblocking));
+            TreeNode childNode = new TreeNode(new UnitStats(unitstats.userAction, unitstats.enemyAction, unitstats.pHP, unitstats.eHP, unitstats.Pult, unitstats.Eult, unitstats.Pheal, unitstats.EHeal, unitstats.Pdmg, unitstats.Edmg, unitstats.Pblocking, unitstats.Eblocking, unitstats.playout));
         
             childNode.unitstats.enemyAction = act;
             childNode.unitstats.GameResult = checkGameRes(childNode.unitstats, act);
@@ -171,9 +171,9 @@ public class TreeNode
         // UnitStats simunitstats;
         // Debug.Log("temp Game Result "+tempsimunitstats.GameResult);
 
-        for(int i = 0 ; i < 5 ; i++){
+        for(int i = 0 ; i < unitstats.playout ; i++){
 
-            UnitStats simunitstats = new UnitStats(unitstats.userAction, unitstats.enemyAction, unitstats.pHP, unitstats.eHP, unitstats.Pult, unitstats.Eult, unitstats.Pheal, unitstats.EHeal, unitstats.Pdmg, unitstats.Edmg, unitstats.Pblocking, unitstats.Eblocking);
+            UnitStats simunitstats = new UnitStats(unitstats.userAction, unitstats.enemyAction, unitstats.pHP, unitstats.eHP, unitstats.Pult, unitstats.Eult, unitstats.Pheal, unitstats.EHeal, unitstats.Pdmg, unitstats.Edmg, unitstats.Pblocking, unitstats.Eblocking, unitstats.playout);
             simunitstats.GameResult = unitstats.GameResult;
 
             while (simunitstats.GameResult == 0)

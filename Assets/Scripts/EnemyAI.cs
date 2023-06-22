@@ -26,6 +26,7 @@ public class EnemyAI : MonoBehaviour
     public Animator Enemyanim;
     public int UltCharge;
     public int enemyAction;
+    public int playout;
 
     //Enemy Turn
 
@@ -36,14 +37,14 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         //make a new treenode using current unitstats
-        tn = new TreeNode(new UnitStats(BattleSystem.userAction, enemyAction, playerUnit.currentHP, enemyUnit.currentHP, playerAct.UltCharge, UltCharge, playerUnit.HealCharge, enemyUnit.HealCharge, playerUnit.damage, enemyUnit.damage, playerUnit.shielded, enemyUnit.shielded)); //create a new TreeNode
+        tn = new TreeNode(new UnitStats(BattleSystem.userAction, enemyAction, playerUnit.currentHP, enemyUnit.currentHP, playerAct.UltCharge, UltCharge, playerUnit.HealCharge, enemyUnit.HealCharge, playerUnit.damage, enemyUnit.damage, playerUnit.shielded, enemyUnit.shielded, playout)); //create a new TreeNode
 
         //begin MCTS
         tn.iterateMCTS();
 
         Debug.Log("children count = "+tn.children.Count);
         foreach(TreeNode child in tn.children){
-            Debug.Log(child.unitstats.enemyAction+" = "+child.uctValue+" "+child.totValue+" "+child.nVisits);
+            Debug.Log(child.unitstats.enemyAction+" = "+child.totValue+" "+child.nVisits);
         }
 
         tn = tn.select();
