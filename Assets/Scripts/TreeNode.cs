@@ -112,7 +112,7 @@ public class TreeNode
                     {
                         // Debug.Log("move not legal");
                     }
-                    else
+                    else if(unitstats.eHP < 50)
                     {
                         LegalActions.Add(i);
                     }
@@ -139,7 +139,7 @@ public class TreeNode
                             r.NextDouble() * epsilon;
             c.uctValue = uctValue;
             // Debug.Log(uctValue);
-            Debug.Log(c.unitstats.enemyAction+" "+uctValue);
+            // Debug.Log(c.unitstats.enemyAction+" "+uctValue);
             if (uctValue > bestValue)
             {
                 selected = c;
@@ -160,6 +160,7 @@ public class TreeNode
         //UnitStats simunitstats = new UnitStats(unitstats.userAction, unitstats.enemyAction, unitstats.pHP, unitstats.eHP, unitstats.Pult, unitstats.Eult, unitstats.Pheal, unitstats.EHeal, unitstats.Pdmg, unitstats.Edmg, unitstats.Pblocking, unitstats.Eblocking);
         // Debug.Log("sim enemy move"+simunitstats.enemyAction);
 
+        int totalSim = unitstats.playout;
         int simValue = 0;
         int eCount = 0; 
         int pCount = 0;
@@ -171,10 +172,14 @@ public class TreeNode
         // UnitStats simunitstats;
         // Debug.Log("temp Game Result "+tempsimunitstats.GameResult);
 
-        for(int i = 0 ; i < unitstats.playout ; i++){
+        for(int i = 0 ; i < totalSim ; i++){
 
             UnitStats simunitstats = new UnitStats(unitstats.userAction, unitstats.enemyAction, unitstats.pHP, unitstats.eHP, unitstats.Pult, unitstats.Eult, unitstats.Pheal, unitstats.EHeal, unitstats.Pdmg, unitstats.Edmg, unitstats.Pblocking, unitstats.Eblocking, unitstats.playout);
             simunitstats.GameResult = unitstats.GameResult;
+
+            if(simunitstats.GameResult == 1){
+                numberOfwins = totalSim;
+            }
 
             while (simunitstats.GameResult == 0)
             {

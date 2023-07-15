@@ -71,6 +71,10 @@ public class BattleSystem : MonoBehaviour
                 userAction = 0;
             }
         }
+
+        if(Input.anyKeyDown){
+            input.ActivateInputField();
+        }
     }
 
     public IEnumerator SetupBattle()
@@ -120,6 +124,7 @@ public class BattleSystem : MonoBehaviour
     public void MathQuestions()
     {
         QuickTimeAction.SetActive(true);
+        input.text = "";
         playerAct.playerAction.SetActive(false);
         int firstVar = Random.Range(0, 100);
         int SecondVar = Random.Range(0, 100);

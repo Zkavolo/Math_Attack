@@ -28,28 +28,49 @@ public class EnemyAI : MonoBehaviour
     public int enemyAction;
     public int playout;
 
+    void Start()
+    {
+        tn = new TreeNode(new UnitStats(BattleSystem.userAction, enemyAction, playerUnit.currentHP, enemyUnit.currentHP, playerAct.UltCharge, UltCharge, playerUnit.HealCharge, enemyUnit.HealCharge, playerUnit.damage, enemyUnit.damage, playerUnit.shielded, enemyUnit.shielded, playout)); //create a new TreeNode
+    }
+
     //Enemy Turn
 
     public IEnumerator EnemyTurn()
     {
         enemyUnit.NotBlocking();
-        
+        Debug.Log("children count = "+tn.children.Count);
+
         yield return new WaitForSeconds(2f);
 
-        //make a new treenode using current unitstats
-        tn = new TreeNode(new UnitStats(BattleSystem.userAction, enemyAction, playerUnit.currentHP, enemyUnit.currentHP, playerAct.UltCharge, UltCharge, playerUnit.HealCharge, enemyUnit.HealCharge, playerUnit.damage, enemyUnit.damage, playerUnit.shielded, enemyUnit.shielded, playout)); //create a new TreeNode
+        if (tn.children.Count > 0)
+        {
+            foreach (TreeNode child in tn.children)
+            {
+                if ((child.unitstats.eHP == enemyUnit.currentHP)
+                     && (child.unitstats.pHP == playerUnit.currentHP))
+                {
+                    tn = child; //use the child as current tree
+                    break;
+                }
+            }
+        }
+        else
+        {
+            tn = new TreeNode(new UnitStats(BattleSystem.userAction, enemyAction, playerUnit.currentHP, enemyUnit.currentHP, playerAct.UltCharge, UltCharge, playerUnit.HealCharge, enemyUnit.HealCharge, playerUnit.damage, enemyUnit.damage, playerUnit.shielded, enemyUnit.shielded, playout)); //create a new TreeNode
+        }
+
 
         //begin MCTS
         tn.iterateMCTS();
 
-        Debug.Log("children count = "+tn.children.Count);
+        // Debug.Log("children count = "+tn.children.Count);
         foreach(TreeNode child in tn.children){
             Debug.Log(child.unitstats.enemyAction+" = "+child.totValue+" "+child.nVisits);
         }
 
         tn = tn.select();
 
-        // Debug.Log("enemy action = "+tn.unitstats.enemyAction);
+        Debug.Log("enemy action = "+tn.unitstats.enemyAction);
 
         int pickedAct = tn.unitstats.enemyAction;
         
